@@ -1,0 +1,124 @@
+@ContosoPizza_HostAddress = http://localhost:5097
+
+GET {{ContosoPizza_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+GET {{ContosoPizza_HostAddress}}/pizza/
+Accept: application/json
+
+###
+
+GET {{ContosoPizza_HostAddress}}/pizza/1
+Accept: application/json
+
+###
+
+GET {{ContosoPizza_HostAddress}}/pizza/5
+Accept: application/json
+
+###
+
+
+POST {{ContosoPizza_HostAddress}}/pizza/
+Content-Type: application/json
+
+{
+    "name": "Hawaii",
+    "isGlutenFree": false
+}
+
+###
+
+PUT {{ContosoPizza_HostAddress}}/pizza/4
+Content-Type: application/json
+
+{
+    "id": 4,
+    "name": "Hawaiian",
+    "isGlutenFree": false
+}
+
+###
+
+GET {{ContosoPizza_HostAddress}}/pizza/3
+Accept: application/json
+
+###
+
+DELETE {{ContosoPizza_HostAddress}}/pizza/4
+
+###
+
+GET {{ContosoPizza_HostAddress}}/pizza/
+Accept: application/json
+
+###
+
+GET {{ContosoPizza_HostAddress}}/pizza/
+Accept: application/json
+
+###
+
+### GET ALL PIZZAS
+GET {{ContosoPizza_HostAddress}}/pizza/
+Accept: application/json
+
+###
+
+GET {{ContosoPizza_HostAddress}}/pizza/2
+Accept: application/json
+###
+
+### GET A NON-EXISTENT PIZZA
+GET {{ContosoPizza_HostAddress}}/pizza/10
+Accept: application/json
+
+###
+
+### CREATE A NEW PIZZA
+POST {{ContosoPizza_HostAddress}}/pizza/
+Content-Type: application/json
+
+{
+    "name": "Mediterranean Delight",
+    "isGlutenFree": true
+}
+
+###
+
+### UPDATE THE NEWLY CREATED PIZZA (ID = 4)
+PUT {{ContosoPizza_HostAddress}}/pizza/4
+Content-Type: application/json
+
+{
+    "id": 4,
+    "name": "Mediterranean Deluxe",
+    "isGlutenFree": false
+}
+
+###
+
+### VERIFY THE UPDATE
+GET {{ContosoPizza_HostAddress}}/pizza/4
+Accept: application/json
+
+###
+
+
+### DELETE THE PIZZA
+DELETE {{ContosoPizza_HostAddress}}/pizza/4
+
+###
+
+### VERIFY THE DELETE
+GET {{ContosoPizza_HostAddress}}/pizza/4
+Accept: application/json
+
+###
+
+### FINAL LIST OF PIZZAS
+GET {{ContosoPizza_HostAddress}}/pizza/
+Accept: application/json
+
+###

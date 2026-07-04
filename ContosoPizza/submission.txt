@@ -1,0 +1,196 @@
+1. Evidence from the end of the module Create a web API with ASP.NET Core controllers showing the existing content, 
+and your additional record.
+
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json; charset=utf-8
+Date: Sat, 04 Jul 2026 01:40:32 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+
+[
+  {
+    "id": 1,
+    "name": "Smoky Barbecue Feast",
+    "isGlutenFree": false
+  },
+  {
+    "id": 2,
+    "name": "Garden Harvest Special",
+    "isGlutenFree": true
+  },
+  {
+    "id": 3,
+    "name": "Ultimate Chicken Supreme",
+    "isGlutenFree": false
+  }
+]
+
+Get a single Pizza 
+
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json; charset=utf-8
+Date: Sat, 04 Jul 2026 01:48:07 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+
+{
+  "id": 2,
+  "name": "Garden Harvest Special",
+  "isGlutenFree": true
+}
+
+### GET A NON-EXISTENT PIZZA
+
+HTTP/1.1 404 Not Found
+Connection: close
+Content-Type: application/problem+json; charset=utf-8
+Date: Sat, 04 Jul 2026 01:51:23 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+  "title": "Not Found",
+  "status": 404,
+  "traceId": "00-e1b145a91f28938ed1a06bd34b8ca379-cd10de4bb5628ada-00"
+}
+
+### CREATE A NEW PIZZA
+
+HTTP/1.1 201 Created
+Connection: close
+Content-Type: application/json; charset=utf-8
+Date: Sat, 04 Jul 2026 01:53:16 GMT
+Server: Kestrel
+Location: http://localhost:5097/Pizza/4
+Transfer-Encoding: chunked
+
+{
+  "id": 4,
+  "name": "Mediterranean Delight",
+  "isGlutenFree": true
+}
+
+### UPDATE THE NEWLY CREATED PIZZA (ID = 4)
+HTTP/1.1 204 No Content
+Connection: close
+Date: Sat, 04 Jul 2026 01:56:07 GMT
+Server: Kestrel
+
+### VERIFY THE UPDATE
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json; charset=utf-8
+Date: Sat, 04 Jul 2026 01:57:33 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+
+{
+  "id": 4,
+  "name": "Mediterranean Deluxe",
+  "isGlutenFree": false
+}
+
+### VERIFY THE UPDATE
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json; charset=utf-8
+Date: Sat, 04 Jul 2026 01:57:33 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+
+{
+  "id": 4,
+  "name": "Mediterranean Deluxe",
+  "isGlutenFree": false
+}
+
+### DELETE THE PIZZA
+HTTP/1.1 204 No Content
+Connection: close
+Date: Sat, 04 Jul 2026 01:59:25 GMT
+Server: Kestrel
+
+ VERIFY THE DELETE
+HTTP/1.1 404 Not Found
+Connection: close
+Content-Type: application/problem+json; charset=utf-8
+Date: Sat, 04 Jul 2026 02:00:26 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+  "title": "Not Found",
+  "status": 404,
+  "traceId": "00-917a1196c7cd368d24366bf28df71ba2-76c430ce015b4dfa-00"
+}
+
+### FINAL LIST OF PIZZAS
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: application/json; charset=utf-8
+Date: Sat, 04 Jul 2026 02:01:40 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+
+[
+  {
+    "id": 1,
+    "name": "Smoky Barbecue Feast",
+    "isGlutenFree": false
+  },
+  {
+    "id": 2,
+    "name": "Garden Harvest Special",
+    "isGlutenFree": true
+  },
+  {
+    "id": 3,
+    "name": "Ultimate Chicken Supreme",
+    "isGlutenFree": false
+  }
+]
+
+
+2. A text copy of your working sales summary function for Part 2.
+Sales Summary
+ Part 2 – Sales Summary Function
+
+The application includes a `GenerateSalesSummary()` function that:
+
+- Reads all sales JSON files.
+- Calculates the overall sales total.
+- Uses a `StringBuilder` object to build the report.
+- Formats currency using the `:C` format specifier.
+- Writes the results to `SalesSummary.txt`.
+
+```csharp
+void GenerateSalesSummary(
+    Dictionary<string, double> salesSummary,
+    double totalSales)
+{
+    StringBuilder report = new StringBuilder();
+
+    report.AppendLine("Sales Summary");
+    report.AppendLine("");
+    report.AppendLine($"Total Sales: {totalSales:C}");
+    report.AppendLine();
+    report.AppendLine("Details:");
+
+    foreach (var sale in salesSummary)
+    {
+        report.AppendLine($"{sale.Key}: {sale.Value:C}");
+    }
+
+    string reportPath = Path.Combine(
+        salesTotalDir,
+        "SalesSummary.txt");
+
+    File.WriteAllText(reportPath, report.ToString());
+
+    Console.WriteLine("Sales summary report created successfully.");
+    Console.WriteLine($"Report saved to: {reportPath}");
+}
